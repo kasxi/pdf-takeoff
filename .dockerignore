@@ -26,10 +26,11 @@ build
 *.swo
 
 # Docker files
-Dockerfile
-docker
-!docker-compose.yml
+docker-compose.yml
 .dockerignore
+
+# Custom nginx config (since we're not using it)
+nginx.conf
 
 # Misc
 .DS_Store

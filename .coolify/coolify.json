@@ -1,8 +1,8 @@
 {
   "version": 1,
   "deploy": {
-    "buildPack": "docker-compose",
-    "composeFile": "docker-compose.yml",
+    "buildPack": "dockerfile",
+    "dockerfilePath": "Dockerfile",
     "autoDeployOnPush": true,
     "forceHttps": true
   },
