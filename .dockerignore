@@ -27,9 +27,11 @@ build
 
 # Docker files
 Dockerfile
+docker
+!docker-compose.yml
 .dockerignore
 
 # Misc
 .DS_Store
 README.md
-*.log 
+*.log

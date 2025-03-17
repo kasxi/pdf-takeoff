@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  # Development service with hot-reloading
+  dev:
+    build:
+      context: .
+      dockerfile: docker/dev.Dockerfile
+    container_name: pdf-takeoff-dev
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+    command: npm run dev
+
+  # Production service with Nginx
+  prod:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: pdf-takeoff-prod
+    ports:
+      - "80:80"
+    restart: unless-stopped
