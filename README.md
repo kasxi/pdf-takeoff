@@ -16,14 +16,13 @@ This application can be run using Docker Compose in both development and product
 To start the application in development mode with hot-reloading:
 
 ```bash
-docker-compose up dev
-```
+# Clone the dev Dockerfile first
+mkdir -p docker
+curl -o docker/dev.Dockerfile https://raw.githubusercontent.com/username/pdf-takeoff/main/docker/dev.Dockerfile
 
-This will:
-- Build the development Docker image
-- Mount your local directory to the container for live code changes
-- Start the Vite development server on port 5173
-- Enable hot-reloading for real-time updates as you code
+# Run the development server
+docker run -it --rm -v $(pwd):/app -p 5173:5173 -w /app node:20-alpine sh -c "npm install && npm run dev -- --host 0.0.0.0"
+```
 
 Access the development application at: http://localhost:5173
 
@@ -32,7 +31,7 @@ Access the development application at: http://localhost:5173
 To start the application in production mode:
 
 ```bash
-docker-compose up prod
+docker-compose up
 ```
 
 This will:
@@ -42,36 +41,46 @@ This will:
 
 Access the production application at: http://localhost:80
 
-### Running in the Background
-
-To run containers in detached mode (background):
-
-```bash
-docker-compose up -d dev  # For development
-docker-compose up -d prod # For production
-```
-
 ### Stopping Containers
 
 ```bash
 docker-compose down
 ```
 
-### Rebuilding Images
+## Deploying on Coolify
 
-If you make changes to the Dockerfile or dependencies:
+This application is configured for easy deployment on Coolify.
 
-```bash
-docker-compose build dev  # Rebuild development image
-docker-compose build prod # Rebuild production image
-```
+### Prerequisites
 
-Or rebuild and start in one command:
+- A Coolify instance set up and running
+- Access to a Git repository with this codebase
 
-```bash
-docker-compose up --build dev  # For development
-docker-compose up --build prod # For production
-```
+### Deployment Steps
+
+1. Log in to your Coolify dashboard
+2. Create a new application
+3. Select "Docker Compose" as the build pack
+4. Connect your Git repository
+5. Set the compose file path to `docker-compose.yml`
+6. Deploy the application
+
+Coolify will automatically:
+- Build the Docker image
+- Deploy the application
+- Set up a domain with HTTPS
+- Configure health checks
+
+### Environment Variables
+
+No additional environment variables are required for basic deployment.
+
+### Customizing the Deployment
+
+You can customize the deployment by modifying the following files:
+- `.coolify/coolify.json`: Coolify-specific configuration
+- `docker-compose.yml`: Service configuration
+- `nginx.conf`: Nginx server configuration
 
 ## Manual Setup (without Docker)
 

@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "deploy": {
+    "buildPack": "docker-compose",
+    "composeFile": "docker-compose.yml",
+    "autoDeployOnPush": true,
+    "forceHttps": true
+  },
+  "healthCheck": {
+    "path": "/",
+    "port": 80,
+    "protocol": "http"
+  }
+}
